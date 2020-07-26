@@ -8,14 +8,13 @@ provider "aws" {
 }
 
 #--------------------------------------------------------------------------------
-# DEV
+# test
 #--------------------------------------------------------------------------------
 
 resource "aws_instance" "splunk" {
   ami                         = "ami-06cf02a98a61f9f5e"
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.test.id
-  private_ip                  = "10.0.1.1"
   key_name                    = "NPerez_Key"
   ebs_optimized               = false
   monitoring                  = false
@@ -24,16 +23,16 @@ resource "aws_instance" "splunk" {
     aws_security_group.splunk.id
     ]
 
-  root_block_device {
-    volume_type           = "gp2"
-    volume_size           = 10
-    delete_on_termination = true
-  }
+  # root_block_testice {
+  #   volume_type           = "gp2"
+  #   volume_size           = 10
+  #   delete_on_termination = true
+  # }
 
   tags = {
     Owner = "DSOLatam2020"
-    Type = "dev"
-    Name = "splunk-dev"
+    Type = "test"
+    Name = "splunk-test"
   }
 }
 
@@ -45,8 +44,8 @@ resource "aws_vpc" "test" {
 
   tags = {
     Owner = "DSOLatam2020"
-    Type = "dev"
-    Name = "vpc-dev"
+    Type = "test"
+    Name = "vpc-test"
   }
 }
 
@@ -56,8 +55,8 @@ resource "aws_subnet" "test" {
 
   tags = {
     Owner = "DSOLatam2020"
-    Type = "dev"
-    Name = "subnet-dev"
+    Type = "test"
+    Name = "subnet-test"
   }
 }
 
@@ -66,8 +65,8 @@ resource "aws_internet_gateway" "gw" {
 
   tags = {
     Owner = "DSOLatam2020"
-    Type = "dev"
-    Name = "subnet-dev"
+    Type = "test"
+    Name = "subnet-test"
   }
 }
 
