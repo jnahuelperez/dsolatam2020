@@ -74,7 +74,7 @@ resource "aws_security_group_rule" "splunk_ingress_WEB_prod" {
   to_port     = 8000
   protocol    = "tcp"
   description = "Allow ingress 8000 from BA office"
-  cidr_blocks = ["1.2.3.4/0"]
+  cidr_blocks = ["8.8.8.8/32"]
   security_group_id = aws_security_group.splunk-prod.id
 }
 
@@ -84,6 +84,6 @@ resource "aws_security_group_rule" "splunk_ingress_SSH_prod" {
   to_port     = 22
   protocol    = "tcp"
   description = "Allow SSH to bad guys"
-  cidr_blocks = ["1.2.3.4/0"]
+  cidr_blocks = ["8.8.8.8/32"]
   security_group_id = aws_security_group.splunk-prod.id
 }
