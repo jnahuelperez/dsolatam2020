@@ -1,4 +1,3 @@
-  
 package rules.security_group_ingress_anywhere
 
 import data.fugue.regula.aws.security_group as sglib
