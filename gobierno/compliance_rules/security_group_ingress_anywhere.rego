@@ -17,7 +17,7 @@ bad_ingress_block(block) {
   not whitelisted_ingress_block(block)
 }
 
-#default deny = false
+default deny = false
 
 deny {
   block = input.ingress[_]
