@@ -14,22 +14,30 @@ provider "aws" {
 resource "aws_instance" "splunk" {
   ami                         = "ami-06cf02a98a61f9f5e"
   instance_type               = "t2.micro"
-  subnet_id                   = "${element(aws_subnet.default.*.id, 0)}" # us-east-1a
-  private_ip                  = "10.0.160.38"
+  subnet_id                   = aws_subnet.test.id
+  private_ip                  = "10.0.1.1"
   key_name                    = "NPerez_Key"
   ebs_optimized               = false
   monitoring                  = false
   associate_public_ip_address = true
-  security_groups = aws_security_group.splunk.id
+  security_groups = [
+    aws_security_group.splunk.id
+    ]
 
   root_block_device {
     volume_type           = "gp2"
     volume_size           = 10
     delete_on_termination = true
   }
+
+  tags = {
+    Owner = "DSOLatam2020"
+    Type = "dev"
+    Name = "splunk-dev"
+  }
 }
 
-resource "aws_vpc" "main" {
+resource "aws_vpc" "test" {
   cidr_block       = "10.0.0.0/16"
   instance_tenancy = "default"
   enable_dns_support = true
@@ -42,8 +50,8 @@ resource "aws_vpc" "main" {
   }
 }
 
-resource "aws_subnet" "main" {
-  vpc_id     = "${aws_vpc.main.id}"
+resource "aws_subnet" "test" {
+  vpc_id     = aws_vpc.test.id
   cidr_block = "10.0.1.0/24"
 
   tags = {
@@ -54,7 +62,7 @@ resource "aws_subnet" "main" {
 }
 
 resource "aws_internet_gateway" "gw" {
-  vpc_id = "${aws_vpc.main.id}"
+  vpc_id = aws_vpc.test.id
 
   tags = {
     Owner = "DSOLatam2020"
@@ -64,30 +72,30 @@ resource "aws_internet_gateway" "gw" {
 }
 
 resource "aws_security_group" "splunk" {
-  name        = "${var.environment}-splunk"
+  name        = "splunk"
   description = "test-splunk"
-  vpc_id      = "${aws_vpc.default.id}"
+  vpc_id      = aws_vpc.test.id
 }
 
 
-resource "aws_security_group_rule" "splunk_ingress_8000" {
+resource "aws_security_group_rule" "splunk_ingress_WEB" {
   type        = "ingress"
   from_port   = 8000
   to_port     = 8000
   protocol    = "tcp"
   description = "Allow ingress 8000 from BA office"
-  cidr_blocks = "0.0.0.0/0"
-  security_group_id = "${aws_security_group.splunk.id}"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.splunk.id
 }
 
-resource "aws_security_group_rule" "splunk_ingress_8000" {
+resource "aws_security_group_rule" "splunk_ingress_SSH" {
   type        = "ingress"
   from_port   = 22
   to_port     = 22
   protocol    = "tcp"
   description = "Allow SSH to bad guys"
-  cidr_blocks = "0.0.0.0/0"
-  security_group_id = "${aws_security_group.splunk.id}"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.splunk.id
 }
 
 terraform {
