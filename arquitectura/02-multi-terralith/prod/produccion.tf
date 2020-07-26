@@ -82,7 +82,7 @@ resource "aws_security_group" "splunk-prod" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-    ingress {
+  ingress {
     description = "SSH Access"
     from_port   = 22
     to_port     = 22
@@ -98,7 +98,6 @@ resource "aws_security_group" "splunk-prod" {
   }
 
   tags = {
-    Name = "allow_tls"
-  }
+    Name = "Splunk group"
 }
 
