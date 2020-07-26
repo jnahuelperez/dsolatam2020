@@ -10,8 +10,8 @@ jobs:
       id: regula
       uses: fugue/regula-action@v0.4.0
       with:
-        terraform_directory: .
-        rego_paths: /opt/regula/rules example_custom_rule
+        terraform_directory: arquitectura/02-multi-terralith/prod/
+        rego_paths: gobierno/compliance_rules
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
