@@ -9,7 +9,7 @@ provider "vault" {
 
 data "vault_aws_access_credentials" "aws_creds" {
     backend = "aws"
-    role = "my-role"
+    role = "dev-role"
 }
 
 provider "aws"{
