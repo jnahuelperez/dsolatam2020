@@ -52,14 +52,14 @@ credential_type=iam_user \
 }
 EOF
 
-vault write aws/config/lease lease=5m lease_max=5m
+vault write aws/config/lease lease=20s lease_max=20s
 ```
 
 ## Habilitando Github
 Habilitamos Github como metodo de autenticacion para validar usuarios y centralizar la gestion desde una sola plataforma:
 ```
-vault auth enable GitHub
-vault write auth/github/config organization-eleselar ttl=86400s
+vault auth enable github
+vault write auth/github/config organization={tu organizacion} ttl=86400s
 vault write auth/github/map/teams/eng value=my-role
 ```
 ## Pidiendo nuestro AWS access/secret
