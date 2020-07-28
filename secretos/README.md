@@ -65,7 +65,7 @@ vault write auth/github/map/teams/eng value=my-role
 ## Pidiendo nuestro AWS access/secret
 Iniciamos sesion en vault usando nuestro github token y lo exportamos
 ```
-vault login -method=github token=28bde4017281c1cabfaec606d40cdb0cdaa608ae
+vault login -method=github token=[your github token]
 vault read aws/creds/my-role
 export VAULT_TOKEN=[TOKEN DEVUELTO POR VAULT]
 ```
