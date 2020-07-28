@@ -65,25 +65,40 @@ resource "aws_security_group" "splunk-prod" {
   name        = "splunk"
   description = "test-splunk"
   vpc_id      = aws_vpc.prod.id
-}
 
+  ingress {
+    description = "Web Access"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-resource "aws_security_group_rule" "splunk_ingress_WEB_prod" {
-  type        = "ingress"
-  from_port   = 8000
-  to_port     = 8000
-  protocol    = "tcp"
-  description = "Allow ingress 8000 from BA office"
-  cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.splunk-prod.id
-}
+  ingress {
+    description = "Web Access"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-resource "aws_security_group_rule" "splunk_ingress_SSH_prod" {
-  type        = "ingress"
-  from_port   = 22
-  to_port     = 22
-  protocol    = "tcp"
-  description = "Allow SSH to bad guys"
-  cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.splunk-prod.id
+  ingress {
+    description = "SSH Access"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "Splunk group"
+  }
+
 }
