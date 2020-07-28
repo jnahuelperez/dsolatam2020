@@ -87,7 +87,7 @@ resource "aws_security_group" "splunk-prod" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["8.8.8.8/32"]
   }
 
   egress {
@@ -100,5 +100,4 @@ resource "aws_security_group" "splunk-prod" {
   tags = {
     Name = "Splunk group"
 }
-
 }
