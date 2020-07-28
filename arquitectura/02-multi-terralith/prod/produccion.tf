@@ -100,5 +100,4 @@ resource "aws_security_group" "splunk-prod" {
   tags = {
     Name = "Splunk group"
 }
-
 }
