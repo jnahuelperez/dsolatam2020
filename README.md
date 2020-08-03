@@ -15,7 +15,7 @@ Usando OPA para restringir push de codigo indeseado
 * https://github.com/fugue/regula
 
 Usando Vault con Terraform
-* [![Mejores practicas para usar Terraform y Vault](.images/terra_practices.png)](https://www.hashicorp.com/resources/best-practices-using-hashicorp-terraform-with-hashicorp-vault/)
+* [![Mejores practicas para usar Terraform y Vault](.images/terra_vault.png)](https://www.hashicorp.com/resources/best-practices-using-hashicorp-terraform-with-hashicorp-vault/)
 
 ## Donde aprender Terraform
 El mejor recurso es el oficial de Hashicorp https://learn.hashicorp.com/terraform tiene un learning path muy bueno para sentar las bases
